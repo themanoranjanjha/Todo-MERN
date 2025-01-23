@@ -126,31 +126,37 @@ export const deleteTodo = asyncHandler(async (req, res) => {
         const user = req.user;
         const { id } = req.params;
 
+
         if (!user) {
-           
             throw new ApiError(401, "Unauthorized request");
         }
-        
+
         const todo = await Todo.findOne({ _id: id, user: user._id });
+         // Debugging log for the database query
 
         if (!todo) {
             throw new ApiError(404, "Todo not found");
         }
-        await todo.remove();
+
+        await todo.deleteOne();
+       
         return res.status(200).json(
-           new ApiResponse(200, "Todo deleted successfully")
+            new ApiResponse(200, "Todo deleted successfully")
         );
     } catch (error) {
-       throw new ApiError(500, "Something went wrong while deleting todo");
+      
+        throw new ApiError(500, error.message || "Something went wrong while deleting todo");
     }
 });
 export const todoCoplete = asyncHandler(async (req, res) => {
     try {
-        const { user } = req.user;
+        const user  = req.user;
+        const { id } = req.params;
+
         if (!user) {
             throw new ApiError(401, "Unauthorized request");
         }
-        const todo = await Todo.findById(req.params.id);
+        const todo = await Todo.findOne({ _id: id, user: user._id });
         if (!todo) {
             throw new ApiError(404, "Todo not found");
         }
