@@ -1,10 +1,10 @@
-import Register from "./register"
+import { Outlet } from "react-router-dom"
+
 function App() {
   
   return (
     <>
-      register
-      <Register />
+    <Outlet/>
     </>
   )
 }
