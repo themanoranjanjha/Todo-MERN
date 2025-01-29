@@ -4,7 +4,7 @@ export const endpoint = {
   SIGNIN_API: `${BASE_URL}/users/register`,
   LOGIN_API: `${BASE_URL}/users/login`,
   LOGOUT_API: `${BASE_URL}/users/logout`,
-  RESETPASSTOKEN_API: `${BASE_URL}/users/refresh-token`,
+  CHECK_AUTH_API: `${BASE_URL}/users/refresh-token`,
 };
 
 export const todoEndpoint = {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { apiConnector } from "../services/apiConnector"; // Adjust the path as needed
 import { AxiosError } from "axios";
 import { endpoint } from "../services/apis"; // Define the LOGIN_API endpoint in your apis.js file
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +10,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const Login = () => {
 
       if (response.status === 200) {
         setMessage("Login successful!");
+        navigate("/todo");
         console.log("User Data:", response.data);
         // Perform actions like storing token, redirecting, etc.
       } else {
