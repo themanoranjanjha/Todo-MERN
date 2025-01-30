@@ -101,8 +101,9 @@ const loginUser = asyncHandler(async (req, res) => {
        // send cookie with response
       
        const options = {
-           httpOnly: true,
-           secure: true
+         //   httpOnly: true,
+           secure: true,
+         //   sameSite: 'Strict'
        }
         return res
         .status(200)
@@ -141,6 +142,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+   // console.log("incomingRefreshToken", incomingRefreshToken);
    if (!incomingRefreshToken) {
        throw new ApiError(401, "unauthorized request")
    }
@@ -150,16 +152,21 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         incomingRefreshToken,
         process.env.REFRESH_TOKEN_SECRET,
     )
-    const user = await User.findById(decodedToken?._Id)
+    console.log("decodedToken", decodedToken);
+    const user = await User.findById(decodedToken?._id)
     if (!user) {
         throw new ApiError(401, "Invalid refresh token")
     }
+    
     if(incomingRefreshToken !== user?.refreshToken){
         throw new ApiError(401, "Refresh token is expired or used")
     }
+   
+
     const options = {
-        httpOnly: true,
-        secure: true
+      //   httpOnly: true,
+        secure: true,
+      //   sameSite: 'Strict'
     }
     const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
     return res
@@ -174,7 +181,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         )
     )
   } catch (error) {
-   throw new ApiError(401, "Invalid refresh token")
+    throw new ApiError(401, "Invalid refresh token")
    
   }
 })
