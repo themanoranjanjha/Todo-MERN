@@ -6,6 +6,7 @@ import Register from './components/register.jsx';
 import Login from './components/login.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Todo from './components/todo.jsx';
+import { UserProvider } from './context/UserContext.jsx';
 
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
@@ -22,6 +23,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <UserProvider>
     <RouterProvider router={router} />
+    </UserProvider>
   </StrictMode>
 );
