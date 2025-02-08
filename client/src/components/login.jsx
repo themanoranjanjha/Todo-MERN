@@ -47,8 +47,7 @@ const Login = () => {
 
         // Store user data and tokens
         localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
-        
+        setUser(user);   
         Cookies.set("accessToken", accessToken, { secure: true, sameSite: "Strict" });
         Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "Strict" });
 
