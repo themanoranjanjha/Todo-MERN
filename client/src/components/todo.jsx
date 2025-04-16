@@ -13,7 +13,7 @@ const Todos = () => {
   const [editTodo, setEditTodo] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
 
-  console.log(user);
+  // console.log(user);
   // Fetch todos from the server
   const fetchTodos = async () => {
     try {
@@ -149,7 +149,7 @@ const Todos = () => {
         ) : (
           <ul>
             {todos.map((todo) => (
-              <li key={todo._id} className="flex justify-between items-center p-2 border-b">
+              <li key={todo._id} className="  md:flex  justify-between items-center p-2  border-b">
                 <span className={todo.completed ? "line-through" : ""}>{todo.title} - {todo.description}</span>
                 <div>
                   <button onClick={() => completeTodo(todo._id)} className="bg-green-500 text-white p-1 rounded mr-2">Complete</button>
